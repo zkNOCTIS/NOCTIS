@@ -70,3 +70,12 @@ sdk/node_modules/
 
 # Claude settings
 .claude/
+
+# Archive files (don't push compressed code)
+*.rar
+*.zip
+*.7z
+*.tar.gz
+
+# Relayer (keep private)
+relayer/

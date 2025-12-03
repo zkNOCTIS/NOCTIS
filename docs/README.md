@@ -2,7 +2,7 @@
 
 Welcome to the NOCTIS documentation. Learn how to use the privacy vault to make private transfers on Base.
 
-## Contents
+## User Guide
 
 - [Getting Started](getting-started.md)
 - [How to Deposit](deposit.md)
@@ -10,6 +10,10 @@ Welcome to the NOCTIS documentation. Learn how to use the privacy vault to make 
 - [Backup & Recovery](backup.md)
 - [Troubleshooting](troubleshooting.md)
 - [FAQ](faq.md)
+
+## Operator Guide
+
+- [Relayer Setup](relayer.md)
 
 ## Quick Links
 
