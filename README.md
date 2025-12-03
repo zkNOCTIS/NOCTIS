@@ -43,6 +43,22 @@ NOCTIS sent to recipient (no link to deposit)
 - **Back up your notes** - lost notes = lost funds
 - **Secrets stay client-side** - spending keys never touch the blockchain
 
+## Why NOCTIS?
+
+NOCTIS is the only token on Base with native ZK privacy. To use the privacy vault, you must hold NOCTIS - creating natural demand from anyone seeking private transactions.
+
+**Future utility:**
+- Pay fees in NOCTIS for multi-token privacy (ETH, USDC)
+- Staking rewards for liquidity providers
+- Governance over protocol parameters
+
+## Roadmap
+
+- ✅ **Phase 1** - ZK privacy vault (Groth16 proofs, Poseidon hashing)
+- 🔄 **Phase 2** - Multi-token support (ETH, USDC, WBTC)
+- 📋 **Phase 3** - Protocol fees & staking
+- 📋 **Phase 4** - Cross-chain privacy bridge
+
 ## Links
 
 - [Website](https://noctis.finance)
