@@ -54,10 +54,12 @@ NOCTIS is the only token on Base with native ZK privacy. To use the privacy vaul
 
 ## Roadmap
 
-- ✅ **Phase 1** - ZK privacy vault (Groth16 proofs, Poseidon hashing)
-- 🔄 **Phase 2** - Multi-token support (ETH, USDC, WBTC)
-- 📋 **Phase 3** - Protocol fees & staking
-- 📋 **Phase 4** - Cross-chain privacy bridge
+| Phase | Status | Description |
+|-------|--------|-------------|
+| 1 | Complete | ZK privacy vault with Groth16 proofs and Poseidon hashing, enabling fully private NOCTIS transfers on Base |
+| 2 | In Progress | Multi-token privacy pools supporting ETH, USDC, and WBTC with NOCTIS fee payments |
+| 3 | Planned | Protocol fee distribution and staking rewards for liquidity providers |
+| 4 | Planned | Cross-chain privacy bridge enabling private transfers across multiple networks |
 
 ## Links
 
