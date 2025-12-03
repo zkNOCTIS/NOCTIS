@@ -62,9 +62,9 @@ NOCTIS is the only token on Base with native ZK privacy. To use the privacy vaul
 
 ## Links
 
-- [Website](https://noctis.finance)
-- [Documentation](https://docs.noctis.finance)
-- [Twitter](https://twitter.com/noctisprotocol)
+- [Website](https://zknoctis.com)
+- [Documentation](https://docs.zknoctis.com)
+- [Twitter](https://twitter.com/zknoctis)
 
 ## License
 
