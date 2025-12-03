@@ -68,7 +68,7 @@ NOCTIS is the only token on Base with native ZK privacy. To use the privacy vaul
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+BUSL-1.1 - see [LICENSE](LICENSE) for details.
 
 ---
 
