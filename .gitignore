@@ -68,7 +68,7 @@ broadcast/
 sdk/dist/
 sdk/node_modules/
 
-# Claude settings
+# IDE/tool settings
 .claude/
 
 # Archive files (don't push compressed code)
