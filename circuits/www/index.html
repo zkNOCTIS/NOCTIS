@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>NOCTIS Prover</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 { color: #00ff00; }
+        .section {
+            background: #111;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #00ff00;
+            font-family: monospace;
+        }
+        button {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: monospace;
+            margin: 5px 0;
+        }
+        button:hover { background: #00cc00; }
+        .output {
+            background: #0a0a0a;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #00ff00;
+            word-break: break-all;
+        }
+        .error { color: #ff0000; }
+        label { display: block; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>🌙 NOCTIS Privacy Prover</h1>
+    <p>Generate ZK proofs for private withdrawals - runs entirely in your browser.</p>
+
+    <div class="section">
+        <h2>1. Generate Commitment (for deposits)</h2>
+        <label>Secret (hex):</label>
+        <input type="text" id="deposit-secret" placeholder="0x1234567890abcdef..." />
+        <button onclick="generateCommitment()">Generate Commitment</button>
+        <div id="commitment-output" class="output"></div>
+    </div>
+
+    <div class="section">
+        <h2>2. Generate Withdrawal Proof</h2>
+
+        <label>Secret (hex):</label>
+        <input type="text" id="secret" placeholder="0x..." />
+
+        <label>Nullifier Preimage (hex):</label>
+        <input type="text" id="nullifier-preimage" placeholder="0x..." />
+
+        <label>Merkle Path (JSON array of hashes):</label>
+        <textarea id="merkle-path" rows="3" placeholder='[123, 456, 789, ...]'></textarea>
+
+        <label>Path Indices (JSON array of booleans):</label>
+        <textarea id="path-indices" rows="2" placeholder='[true, false, true, ...]'></textarea>
+
+        <label>Recipient Address:</label>
+        <input type="text" id="recipient" placeholder="0x..." />
+
+        <label>Denomination (wei):</label>
+        <input type="text" id="denomination" placeholder="10000000000000000000000" />
+
+        <button onclick="generateProof()">Generate Proof</button>
+
+        <div id="proof-output" class="output"></div>
+    </div>
+
+    <div class="section">
+        <h2>3. Public Inputs</h2>
+        <button onclick="getPublicInputs()">Get Public Inputs</button>
+        <div id="public-inputs-output" class="output"></div>
+    </div>
+
+    <script type="module">
+        import init, {
+            generate_commitment,
+            generate_nullifier,
+            generate_proof,
+            get_public_inputs
+        } from './pkg/noctis_circuits.js';
+
+        // Initialize WASM
+        await init();
+
+        // Make functions available globally
+        window.generateCommitment = async function() {
+            try {
+                const secret = document.getElementById('deposit-secret').value;
+                const commitment = generate_commitment(secret);
+                document.getElementById('commitment-output').innerHTML = `
+                    <strong>Commitment:</strong><br>${commitment}<br><br>
+                    <em>Use this commitment when calling vault.deposit()</em>
+                `;
+            } catch (e) {
+                document.getElementById('commitment-output').innerHTML =
+                    `<span class="error">Error: ${e}</span>`;
+            }
+        };
+
+        window.generateProof = async function() {
+            try {
+                const secret = document.getElementById('secret').value;
+                const nullifierPreimage = document.getElementById('nullifier-preimage').value;
+                const merklePath = document.getElementById('merkle-path').value;
+                const pathIndices = document.getElementById('path-indices').value;
+                const recipient = document.getElementById('recipient').value;
+                const denomination = document.getElementById('denomination').value;
+
+                const proofBytes = generate_proof(
+                    secret,
+                    nullifierPreimage,
+                    merklePath,
+                    pathIndices,
+                    recipient,
+                    denomination
+                );
+
+                // Convert to hex
+                const proofHex = '0x' + Array.from(proofBytes)
+                    .map(b => b.toString(16).padStart(2, '0'))
+                    .join('');
+
+                document.getElementById('proof-output').innerHTML = `
+                    <strong>Proof (${proofBytes.length} bytes):</strong><br>
+                    <code>${proofHex}</code><br><br>
+                    <em>Use this proof when calling vault.submitWithdrawal()</em>
+                `;
+            } catch (e) {
+                document.getElementById('proof-output').innerHTML =
+                    `<span class="error">Error: ${e}</span>`;
+            }
+        };
+
+        window.getPublicInputs = async function() {
+            try {
+                const secret = document.getElementById('secret').value;
+                const nullifierPreimage = document.getElementById('nullifier-preimage').value;
+                const merklePath = document.getElementById('merkle-path').value;
+                const pathIndices = document.getElementById('path-indices').value;
+                const recipient = document.getElementById('recipient').value;
+                const denomination = document.getElementById('denomination').value;
+
+                const publicInputs = get_public_inputs(
+                    secret,
+                    nullifierPreimage,
+                    merklePath,
+                    pathIndices,
+                    recipient,
+                    denomination
+                );
+
+                const parsed = JSON.parse(publicInputs);
+                document.getElementById('public-inputs-output').innerHTML = `
+                    <strong>Merkle Root:</strong> ${parsed.merkle_root}<br>
+                    <strong>Nullifier:</strong> ${parsed.nullifier}<br>
+                    <strong>Recipient:</strong> ${parsed.recipient}<br>
+                    <strong>Denomination:</strong> ${parsed.denomination}
+                `;
+            } catch (e) {
+                document.getElementById('public-inputs-output').innerHTML =
+                    `<span class="error">Error: ${e}</span>`;
+            }
+        };
+    </script>
+</body>
+</html>

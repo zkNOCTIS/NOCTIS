@@ -1,0 +1,21 @@
+{
+  "name": "@noctis/sdk",
+  "version": "1.0.0",
+  "description": "SDK for interacting with the Noctis Privacy Vault",
+  "main": "noctis-sdk.js",
+  "scripts": {
+    "example": "node example-usage.js",
+    "test": "node test-sdk.js"
+  },
+  "dependencies": {
+    "ethers": "^6.9.0"
+  },
+  "keywords": [
+    "privacy",
+    "ethereum",
+    "base",
+    "zk-proofs",
+    "mixer"
+  ],
+  "license": "MIT"
+}

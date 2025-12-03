@@ -1,0 +1,72 @@
+# Compiler files
+cache/
+out/
+
+# Ignores development broadcast logs
+!/broadcast
+/broadcast/*/31337/
+/broadcast/**/dry-run/
+
+# Docs
+docs/
+
+# Environment files (NEVER commit these)
+.env
+.env.local
+.env.*.local
+
+# Node modules
+node_modules/
+
+# Coverage
+lcov.info
+
+# Frontend build
+frontend/dist/
+frontend/.vite/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Circuit build artifacts (large files)
+circuits/*.r1cs
+circuits/*.sym
+circuits/*_js/
+circuits/*.wtns
+circuits/pot*.ptau
+
+# Keep these circuit files (needed for frontend)
+!circuits/withdrawal.wasm
+!circuits/withdrawal_final.zkey
+
+# Test artifacts
+testfiles/
+
+# Backup files
+*.bak
+*.backup
+noctis-backup-*.json
+
+# Windows reserved names
+nul
+NUL
+
+# Rust/Cargo build artifacts
+circuits/target/
+
+# Broadcast logs (deployment artifacts with private data)
+broadcast/
+
+# SDK build
+sdk/dist/
+sdk/node_modules/
+
+# Claude settings
+.claude/

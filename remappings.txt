@@ -1,0 +1,6 @@
+@openzeppelin/=lib/openzeppelin-contracts/
+@uniswap/v4-core/=lib/v4-core/
+@uniswap/v4-periphery/=lib/v4-periphery/
+@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/
+forge-std/=lib/forge-std/src/
+poseidon-solidity/=node_modules/poseidon-solidity/

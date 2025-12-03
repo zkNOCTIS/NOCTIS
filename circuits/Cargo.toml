@@ -1,0 +1,56 @@
+[package]
+name = "noctis-circuits"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "noctis_circuits"
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# Plonky3 core
+p3-field = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-baby-bear = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-goldilocks = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-challenger = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-commit = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-matrix = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-air = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-uni-stark = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-symmetric = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-poseidon2 = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-merkle-tree = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-fri = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-dft = { git = "https://github.com/Plonky3/Plonky3.git" }
+p3-keccak-air = { git = "https://github.com/Plonky3/Plonky3.git" }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bincode = "1.3"
+
+# Utilities
+rand = "0.8"
+hex = "0.4"
+
+# WASM support (only for wasm32 target)
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+js-sys = "0.3"
+web-sys = { version = "0.3", features = ["console"] }
+getrandom = { version = "0.2", features = ["js"] }
+console_error_panic_hook = "0.1"
+
+# Binaries disabled until updated for latest Plonky3 API
+# [[bin]]
+# name = "generate-verifier"
+# path = "src/bin/generate_verifier.rs"
+
+# [[bin]]
+# name = "prove"
+# path = "src/bin/prove.rs"
+
+[profile.release]
+opt-level = 3
+lto = true
