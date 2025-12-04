@@ -41,7 +41,8 @@ NOCTIS sent to recipient (no link to deposit)
 | Contract | Address |
 |----------|---------|
 | NOCTIS Token | `0xdb9446b980e6765B0f90f355eB761936BB466b07` |
-| Privacy Vault | `0x4648A39170863c6E1E3892187f63B8889Fc30d61` |
+| Privacy Vault (NOCTIS) | `0x4648A39170863c6E1E3892187f63B8889Fc30d61` |
+| Privacy Vault (ETH) | `0x05D1cc939b2F8528eF5b7d9C09A653a9119d28f5` |
 | Verifier | `0x48f8aBbf907A378d39ADc3B54773dB57abba9e17` |
 | Treasury | `0x413e62A6FDFe4DaAf71b10d1B23D0a57BFb21330` |
 
@@ -67,8 +68,9 @@ NOCTIS is the only token on Base with native ZK privacy. To use the privacy vaul
 | Phase | Status | Description |
 |-------|--------|-------------|
 | 1 | Complete | ZK privacy vault with Groth16 proofs and Poseidon hashing, enabling fully private NOCTIS transfers on Base |
-| 2 | In Progress | Multi-token privacy pools supporting ETH, USDC, USDT, and more with NOCTIS fee payments |
-| 3 | Planned | Cross-chain privacy bridge enabling private transfers across multiple networks |
+| 2 | Complete | Native ETH privacy vault with 0.5% deposit fee |
+| 3 | Planned | Multi-token privacy pools supporting USDC, USDT, and more |
+| 4 | Planned | Cross-chain privacy bridge enabling private transfers across multiple networks |
 
 ## Links
 

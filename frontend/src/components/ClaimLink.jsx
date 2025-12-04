@@ -12,7 +12,7 @@ export function ClaimLink({ linkData, onClose }) {
     address, // Only for "use connected wallet" button
     provider,
     fetchBalances,
-    createNote,
+    createChangeNote,
     addNote, // For saving change notes from partial withdrawals
     spendNote, // For marking original note as spent (if it's in our wallet)
   } = useWalletStore();
@@ -127,7 +127,8 @@ export function ClaimLink({ linkData, onClose }) {
 
       if (amountWei < noteBalanceWei) {
         const changeBalance = noteBalanceWei - amountWei;
-        changeNote = await createNote(ethers.formatEther(changeBalance));
+        // Use createChangeNote (no fee) instead of createNote (applies deposit fee)
+        changeNote = await createChangeNote(changeBalance.toString());
         changeCommitment = BigInt(changeNote.commitment);
 
         // Save as pending (index: null)
@@ -232,7 +233,8 @@ export function ClaimLink({ linkData, onClose }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           proof: encodedProof,
-          publicInputs: publicInputsContract
+          publicInputs: publicInputsContract,
+          vaultAddress: ADDRESSES.vault
         })
       });
 
@@ -266,7 +268,11 @@ export function ClaimLink({ linkData, onClose }) {
 
       // Mark the original note as spent (if it exists in our wallet)
       // This handles the case where user claims their own note via ClaimLink
-      console.log('Marking note as spent, commitment:', note.commitment);
+      console.log('=== MARKING NOTE AS SPENT ===');
+      console.log('Original note commitment from link:', note.commitment);
+      console.log('Commitment type:', typeof note.commitment);
+      const walletNotes = useWalletStore.getState().notes;
+      console.log('Notes in wallet:', walletNotes.map(n => ({ commitment: n.commitment, spent: n.spent })));
       spendNote(note.commitment);
 
       await fetchBalances();
@@ -275,7 +281,7 @@ export function ClaimLink({ linkData, onClose }) {
         <div>
           <p className="font-semibold">Funds claimed!</p>
           <p className="text-sm text-white/60">
-            {amount} NOCTIS sent to {recipient.slice(0, 6)}...{recipient.slice(-4)}
+            {amount} ETH sent to {recipient.slice(0, 6)}...{recipient.slice(-4)}
           </p>
         </div>,
         { id: toastId, duration: 5000 }
@@ -339,13 +345,13 @@ export function ClaimLink({ linkData, onClose }) {
             </svg>
           </div>
           <h2 className="text-2xl font-bold mb-1">Claim Private Payment</h2>
-          <p className="text-white/60">Someone sent you NOCTIS!</p>
+          <p className="text-white/60">Someone sent you ETH!</p>
         </div>
 
         {/* Amount */}
         <div className="p-4 bg-gradient-to-r from-noctis-purple/20 to-noctis-blue/20 rounded-xl text-center mb-6">
           <div className="text-sm text-white/60 mb-1">Available to claim</div>
-          <div className="text-3xl font-bold gradient-text">{noteBalance.toLocaleString()} NOCTIS</div>
+          <div className="text-3xl font-bold gradient-text">{noteBalance.toFixed(6)} ETH</div>
         </div>
 
         <div className="space-y-4">
@@ -406,13 +412,13 @@ export function ClaimLink({ linkData, onClose }) {
               <div className="flex justify-between text-sm">
                 <span className="text-white/60">Relayer fee ({RELAYER_CONFIG.feeBps / 100}%)</span>
                 <span className="text-yellow-400">
-                  -{(parseFloat(amount) * RELAYER_CONFIG.feeBps / 10000).toLocaleString()} NOCTIS
+                  -{(parseFloat(amount) * RELAYER_CONFIG.feeBps / 10000).toFixed(6)} ETH
                 </span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-white/60">You receive</span>
                 <span className="text-green-400 font-semibold">
-                  {(parseFloat(amount) * (1 - RELAYER_CONFIG.feeBps / 10000)).toLocaleString()} NOCTIS
+                  {(parseFloat(amount) * (1 - RELAYER_CONFIG.feeBps / 10000)).toFixed(6)} ETH
                 </span>
               </div>
             </div>

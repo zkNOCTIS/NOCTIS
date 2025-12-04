@@ -1,20 +1,17 @@
-// NOCTIS Contract Addresses
-// Update these after deploying to your target network
+// Shadow ETH - Private ETH Vault Configuration
+// For eth.zknoctis.com
 
+// Contract Addresses
 export const ADDRESSES = {
-  token: "0x0000000000000000000000000000000000000000",      // Your ERC20 token
-  vault: "0x0000000000000000000000000000000000000000",      // BalanceVaultV4
-  verifier: "0x0000000000000000000000000000000000000000",   // WithdrawalVerifier (Groth16)
-  poseidonT3: "0x0000000000000000000000000000000000000000", // PoseidonT3 library
-  poseidonT4: "0x0000000000000000000000000000000000000000"  // PoseidonT4 library
+  vault: "0x05D1cc939b2F8528eF5b7d9C09A653a9119d28f5", // EthVaultV1 on Base mainnet
 };
 
-// Chain Configuration - Update for your target network
-export const CHAIN_CONFIG = {
-  chainId: 8453,           // Base Mainnet: 8453, Base Sepolia: 84532
-  chainIdHex: '0x2105',    // Base Mainnet: 0x2105, Base Sepolia: 0x14a34
+// Base Mainnet
+export const BASE_MAINNET = {
+  chainId: 8453,
+  chainIdHex: '0x2105',
   name: 'Base',
-  rpcUrl: 'https://mainnet.base.org',
+  rpcUrl: 'https://base-rpc.publicnode.com',
   blockExplorer: 'https://basescan.org',
   nativeCurrency: {
     name: 'Ethereum',
@@ -23,12 +20,38 @@ export const CHAIN_CONFIG = {
   }
 };
 
-// Legacy export for compatibility
-export const BASE_SEPOLIA = CHAIN_CONFIG;
+// Localhost (Anvil) - for local testing
+export const LOCALHOST = {
+  chainId: 31337,
+  chainIdHex: '0x7a69',
+  name: 'Localhost',
+  rpcUrl: 'http://localhost:8545',
+  blockExplorer: '',
+  nativeCurrency: {
+    name: 'Ethereum',
+    symbol: 'ETH',
+    decimals: 18
+  }
+};
 
-// Vault ABI
+// Active network - SET TO BASE_MAINNET FOR PRODUCTION
+export const ACTIVE_NETWORK = BASE_MAINNET;
+
+// Fee configuration
+export const FEE_BPS = 50n; // 0.5% deposit fee (no fee on withdrawals)
+
+// Relayer configuration (for privacy-preserving withdrawals)
+const isLocalhost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+export const RELAYER_CONFIG = {
+  enabled: true, // Enable relayer for private withdrawals
+  url: isLocalhost ? 'http://localhost:3001' : '/relayer',
+  feeBps: 0
+};
+
+// ETH Vault ABI (native ETH, payable deposit)
 export const VAULT_ABI = [
-  "function deposit(uint256 commitment, uint256 amount) external",
+  "function deposit(uint256 commitment) external payable",
   "function withdraw(bytes calldata proof, uint256[5] calldata publicInputs) external",
   "function getCurrentRoot() external view returns (uint256)",
   "function getMerkleProof(uint256 noteIndex) external view returns (uint256[] memory siblings, bool[] memory isLeft)",
@@ -36,20 +59,10 @@ export const VAULT_ABI = [
   "function isKnownRoot(uint256 root) external view returns (bool)",
   "function nullifierUsed(uint256 nullifier) external view returns (bool)",
   "function commitmentUsed(uint256 commitment) external view returns (bool)",
-  "function computeCommitment(uint256 spendingKeyHash, uint256 balance, uint256 randomness) external view returns (uint256)",
-  "function computeNullifier(uint256 spendingKey, uint256 noteIndex) external view returns (uint256)",
-  "function getPoseidonLib() external view returns (address)",
+  "function feeBps() external view returns (uint256)",
+  "function feeRecipient() external view returns (address)",
   "event NoteCreated(uint256 indexed commitment, uint256 indexed noteIndex, uint256 timestamp)",
   "event Withdrawal(uint256 indexed nullifier, address indexed recipient, uint256 amount, bool hasChange)"
-];
-
-// Token ABI (standard ERC20)
-export const TOKEN_ABI = [
-  "function approve(address spender, uint256 amount) external returns (bool)",
-  "function balanceOf(address account) external view returns (uint256)",
-  "function allowance(address owner, address spender) external view returns (uint256)",
-  "function symbol() external view returns (string)",
-  "function decimals() external view returns (uint8)"
 ];
 
 // BN254 field modulus
