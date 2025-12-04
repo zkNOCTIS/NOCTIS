@@ -14,7 +14,6 @@ A zero-knowledge privacy protocol for the NOCTIS token on Base. Deposit NOCTIS i
 - **ZK Proofs**: Groth16 via circom/snarkjs
 - **Hash Function**: Poseidon on BN254 (alt_bn128)
 - **Merkle Tree**: 20 levels
-- **Frontend**: React + Vite
 - **Chain**: Base
 
 ## Architecture
@@ -82,4 +81,4 @@ BUSL-1.1 - see [LICENSE](LICENSE) for details.
 
 ---
 
-<h3 align="center">NOCTIS - Privacy for the people</h3>
+<h3 align="center">NOCTIS - Privacy of the people</h3>
