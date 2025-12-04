@@ -82,4 +82,4 @@ BUSL-1.1 - see [LICENSE](LICENSE) for details.
 
 ---
 
-<h3 align="center">NOCTIS - Privacy of the people</h3>
+<h3 align="center">NOCTIS - Privacy for the people</h3>
