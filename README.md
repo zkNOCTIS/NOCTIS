@@ -40,8 +40,8 @@ NOCTIS sent to recipient (no link to deposit)
 
 | Contract | Address |
 |----------|---------|
-| NOCTIS Token | `TBD` |
-| Privacy Vault | `TBD` |
+| NOCTIS Token | `0xdb9446b980e6765B0f90f355eB761936BB466b07` |
+| Privacy Vault | `0x4648A39170863c6E1E3892187f63B8889Fc30d61` |
 | Verifier | `0x48f8aBbf907A378d39ADc3B54773dB57abba9e17` |
 
 > All contracts deployed on [Base](https://basescan.org)
