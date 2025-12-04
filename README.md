@@ -37,6 +37,16 @@ User generates ZK proof in browser
 NOCTIS sent to recipient (no link to deposit)
 ```
 
+## Contracts
+
+| Contract | Address |
+|----------|---------|
+| NOCTIS Token | `TBD` |
+| Privacy Vault | `TBD` |
+| Verifier | `0x48f8aBbf907A378d39ADc3B54773dB57abba9e17` |
+
+> All contracts deployed on [Base](https://basescan.org)
+
 ## Security
 
 - **Notes are bearer assets** - anyone with the note can withdraw
