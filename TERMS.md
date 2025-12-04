@@ -1,6 +1,6 @@
 # Terms of Service
 
-**Last updated: December 2024**
+**Last updated: December 2025**
 
 By accessing or using the NOCTIS protocol, website, or any associated services, you agree to be bound by these Terms of Service.
 
